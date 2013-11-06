@@ -1,0 +1,5 @@
+BootstrapHtml:
+    external_svc_url: http://bshtml.qa-ext.livefyre.com
+    web_port: 3002
+    redis_host: redis-master-1
+    redis_port: 6379

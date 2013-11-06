@@ -2,13 +2,13 @@
  * @fileoverview Run the bootstrap service
  */
 
-var port = 3020;
-var system = require('system');
-var page = require('webpage').create();
-var server = require('./server').create(port);
-var util = require('./util');
-var module = system.args[1];
-var config = system.args[2];
+var port = 3020,
+    system = require('system'),
+    page = require('webpage').create(),
+    server = require('./server').create(port),
+    util = require('./util'),
+    module = system.args[1],
+    config = system.args[2];
 
 if (!module) {
     console.error('missing module');
