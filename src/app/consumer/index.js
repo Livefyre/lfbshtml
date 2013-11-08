@@ -3,11 +3,13 @@
  * TODO(rrp): Handle errors, redis connection, ports, etc
  */
 
-var kue = require('kue');
-var runner = require('./phantomrunner');
-var postBack = require('./postback');
+var kue = require('kue'),
+    runner = require('./phantomrunner'),
+    postBack = require('./postback'),
+    jobs;
+
 require('../util').setRedisServer();
-var jobs = kue.createQueue();
+jobs = kue.createQueue();
 
 exports.start = function() {
     console.log('Starting bootstrap queue consumer');

@@ -1,0 +1,17 @@
+BootstrapHtml:
+    external_svc_url: !spec
+        description: external svc url
+        type: !uri ""
+        value: !uri http://bshtml.fyre/api/v1.0/bootstrap/fyre.conv/
+    web_port: !spec
+        description: web port
+        type: !!int "0"
+        value: !required "cluster.yaml"
+    redis_host: !spec
+        description: redis host location
+        type: !!str ""
+        value: !required "cluster.yaml"
+    redis_port: !spec
+        description:
+        type: !!int "0"
+        value: 6379

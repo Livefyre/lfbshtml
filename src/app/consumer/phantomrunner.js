@@ -4,9 +4,9 @@
  * completion
  */
 
-var childProcess = require('child_process');
-var phantomjs = require('phantomjs');
-var binPath = phantomjs.path;
+var childProcess = require('child_process'),
+    phantomjs = require('phantomjs'),
+    binPath = phantomjs.path;
 
 /**
  * @param {string} type

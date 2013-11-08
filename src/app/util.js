@@ -1,19 +1,14 @@
-var kue = require('kue');
-var redis = require('redis');
-var url = require('url');
+var kue = require('kue'),
+    redis = require('redis'),
+    url = require('url'),
+    config = require('../config');
 
 exports.setRedisServer = function() {
-    if (!process.env.REDISTOGO_URL) {
-        console.log('Missing REDISTOGO_URL...using local');
-        return;
-    }
+    var port = config.BootstrapHtml.redis_port || process.env.REDISTOGO_URL,
+        host = config.BootstrapHtml.redis_host;
 
     kue.redis.createClient = function() {
-        var redisUrl = url.parse(process.env.REDISTOGO_URL);
-        var client = redis.createClient(redisUrl.port, redisUrl.hostname);
-        if (redisUrl.auth) {
-            client.auth(redisUrl.auth.split(":")[1]);
-        }
+        var client = redis.createClient(port, host);
         return client;
     };
 };

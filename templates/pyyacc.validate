@@ -1,0 +1,16 @@
+#!/usr/local/Cellar/python/2.7.3/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python
+
+import sys
+from os.path import expanduser
+home = expanduser("~")
+
+sys.path[0:0] = [
+    home + '/dev/perseids/eggs/py_yacc-0.0.8-py2.7.egg',
+    home + '/dev/perseids/eggs/PyYAML-3.10-py2.7-macosx-10.8-x86_64.egg',
+    ]
+
+
+import pyyacc.scripts.compile
+
+if __name__ == '__main__':
+    pyyacc.scripts.compile.validate_main()

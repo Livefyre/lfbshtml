@@ -6,17 +6,13 @@ install:
 	@ # Install the app
 	@echo "Installing phantom bootstrapper"
 	@npm install
+	@mkdir -p ./bin
+	@cp templates/* ./bin
+	@chmod -R 755 ./bin
 
 test:
 	@ # Run some mocha tests
 	@./node_modules/.bin/mocha $(TESTS)
-
-deploy:
-	@echo "Deploying heroku master"
-	@heroku maintenance:on
-	@git push heroku master
-	@heroku maintenance:off
-	@heroku config:set NODE_ENV=production
 
 run:
 	@echo "Running locally via foreman"
@@ -25,11 +21,3 @@ run:
 spam:
 	@echo "Mmmmm spam"
 	@node src/test/spammer.js
-
-buildboxes:
-	@heroku addons:add redistogo
-	@heroku ps:scale web=1 worker=1
-
-removeboxes:
-	@heroku addons:remove redistogo
-	@heroku ps:scale web=0 worker=0

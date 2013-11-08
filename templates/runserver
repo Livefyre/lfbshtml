@@ -1,0 +1,21 @@
+#!/bin/bash
+echo "Starting..."
+
+# http://stackoverflow.com/questions/59895/can-a-bash-script-tell-what-directory-its-stored-in
+SWD="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )/../" && pwd )"
+cd $SWD
+if [ "`uname`" = "Darwin" ]; then
+        $SWD/bin/pyyacc.validate -f json $SWD/src/config/app.yaml $SWD/src/config/env_darwin.yaml /etc/livefyre/cluster.yaml > $SWD/config.json
+        if [ $? != 0 ]; then
+            echo "Failed to validate configuration." > /dev/stderr
+            exit 1
+        fi
+        NEWRELIC__APP_NAME=$USER-irt
+else
+        pyyacc.validate -f json $SWD/src/config/app.yaml /etc/livefyre/cluster.yaml > $SWD/config.json
+        if [ $? != 0 ]; then
+           echo "Failed to validate configuration." > /dev/stderr
+           exit 1
+        fi
+fi
+node ${SWD}/src/runserver.js

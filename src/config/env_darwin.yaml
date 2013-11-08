@@ -1,0 +1,5 @@
+BootstrapHtml:
+    external_svc_url: !uri http://bshtml.fyre
+    web_port: 3002
+    redis_host: localhost
+    redis_port: 6379
