@@ -7,7 +7,8 @@ install:
 	@echo "Installing phantom bootstrapper"
 	@npm install
 	@mkdir -p ./bin
-	@cp templates/* ./bin 
+	@cp templates/* ./bin
+	@chmod -R 755 ./bin
 
 test:
 	@ # Run some mocha tests

@@ -3,14 +3,14 @@
  *   request name (see ./templates) and fills in details based on conifg object
  */
 
-var server = require('webserver').create();
-var fs = require('fs');
+var server = require('webserver').create(),
+    fs = require('fs');
 
 /**
  * @param {string} url
  * @return {string}
  */
-var getTmplNameFromUrl = function(url) {
+function getTmplNameFromUrl(url) {
     try {
         var parts = url.split('/');
         return parts[1].split('?')[0];
@@ -24,7 +24,7 @@ var getTmplNameFromUrl = function(url) {
  * @param {string} url
  * @return {Object}
  */
-var getCfgObjectFromUrl = function(url) {
+function getCfgObjectFromUrl(url) {
     try {
         var config = url.split('config=')[1];
         return JSON.parse(decodeURIComponent(config));
@@ -39,7 +39,7 @@ var getCfgObjectFromUrl = function(url) {
  * @param {Object} data
  * @return {string}
  */
-var replaceTmplWithObject = function(template, data) {
+function replaceTmplWithObject(template, data) {
     var key;
     for (key in data) {
         template = template.replace('{' + key + '}', data[key], 'g');
@@ -58,20 +58,21 @@ var replaceTmplWithObject = function(template, data) {
  */
 exports.create = function(port) {
     server.listen(port, function (request, response) {
-        var url = request.url;        
-        var tmplName = getTmplNameFromUrl(url);
-        var path = fs.workingDirectory + '/src/phantom/templates/' + tmplName;
+        var url = request.url,
+            tmplName = getTmplNameFromUrl(url),
+            path = fs.workingDirectory + '/src/phantom/templates/' + tmplName,
+            template, config, data;
 
         try {
-            var template = fs.read(path);
+            template = fs.read(path);
         } catch (e) {
             console.error('could not read from path');
             response.write('Bad template path');
             respose.close();
         }
 
-        var config = getCfgObjectFromUrl(url);
-        var data = replaceTmplWithObject(template, config);
+        config = getCfgObjectFromUrl(url);
+        data = replaceTmplWithObject(template, config);
         response.statusCode = 200;
         response.headers = {
             'Cache': 'no-cache',

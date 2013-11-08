@@ -1,8 +1,8 @@
 BootstrapHtml:
     external_svc_url: !spec
         description: external svc url
-        type: !!uri ""
-        value: http://bshtml.fyre/api/v1.0/bootstrap/fyre.conv/
+        type: !uri ""
+        value: !uri http://bshtml.fyre/api/v1.0/bootstrap/fyre.conv/
     web_port: !spec
         description: web port
         type: !!int "0"
