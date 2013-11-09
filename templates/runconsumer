@@ -18,4 +18,4 @@ else
            exit 1
         fi
 fi
-node ${SWD}/src/runconsumer.js
+exec node ${SWD}/src/runconsumer.js
