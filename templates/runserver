@@ -10,4 +10,5 @@ if [ "`uname`" = "Darwin" ]; then
 else
         $SWD/bin/yamlparse $SWD/src/config/app.yaml /etc/livefyre/cluster.yaml > $SWD/config.json
 fi
+chmod 755 $SWD/config.json
 exec node ${SWD}/src/runserver.js
