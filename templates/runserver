@@ -5,17 +5,9 @@ echo "Starting..."
 SWD="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )/../" && pwd )"
 cd $SWD
 if [ "`uname`" = "Darwin" ]; then
-        $SWD/bin/pyyacc.validate -f json $SWD/src/config/app.yaml $SWD/src/config/env_darwin.yaml /etc/livefyre/cluster.yaml > $SWD/config.json
-        if [ $? != 0 ]; then
-            echo "Failed to validate configuration." > /dev/stderr
-            exit 1
-        fi
+        $SWD/bin/yamlparse $SWD/src/config/app.yaml $SWD/src/config/env_darwin.yaml /etc/livefyre/cluster.yaml > $SWD/config.json
         NEWRELIC__APP_NAME=$USER-irt
 else
-        pyyacc.validate -f json $SWD/src/config/app.yaml /etc/livefyre/cluster.yaml > $SWD/config.json
-        if [ $? != 0 ]; then
-           echo "Failed to validate configuration." > /dev/stderr
-           exit 1
-        fi
+        $SWD/bin/yamlparse $SWD/src/config/app.yaml /etc/livefyre/cluster.yaml > $SWD/config.json
 fi
 exec node ${SWD}/src/runserver.js

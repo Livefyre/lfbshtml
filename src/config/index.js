@@ -4,7 +4,7 @@ var fs = require('fs'),
 try {
     config = JSON.parse(fs.readFileSync(__dirname + '/../../config.json', 'utf-8'));
 } catch (err) {
-    console.error("Unable to read config.json file. Failing.");
+    console.error('Unable to read config.json file. Failing:', err);
     process.exit(1);
 }
 

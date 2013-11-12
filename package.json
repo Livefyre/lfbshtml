@@ -1,5 +1,5 @@
 {
-  "name": "phantom-bootstrapper",
+  "name": "lfbshtml",
   "description": "Phantom Bootstrapper",
   "author": "Livefyre <support@livefyre.com>",
   "contributors": {
@@ -15,8 +15,10 @@
     "express": "3.2.4",
     "kue": "0.6.2",
     "foreman": "0.0.25",
+    "js-yaml": "2.1.3",
     "phantomjs": "1.9.2-2",
     "mocha": "1.9.0",
-    "redis": "0.8.3"
+    "redis": "0.8.3",
+    "xtend": "2.1.1"
   }
 }
