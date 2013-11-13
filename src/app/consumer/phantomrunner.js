@@ -21,12 +21,17 @@ exports.run = function(type, data, callback) {
     ];
 
     console.log('Running phantom child proc to get bs data');
+    var isOSX = !!process.platform.match(/darwin/);
     childProcess.execFile(binPath, childArgs, function(err, stdout, stderr) {
         console.log('Phantom child process has run');
-        if (err || stderr) {
-            console.log('Something went wrong with phantom child proc');
-            console.log(stderr);
-            console.log(err);
+        if (err) {
+            console.error('Something went wrong with phantom child proc');
+            console.error(err);
+            return;
+        }
+        if (stderr && !isOSX) {
+            console.error('Something went wrong with phantom child proc');
+            console.error(stderr);
             return;
         }
         callback(stdout);
