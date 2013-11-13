@@ -20,6 +20,7 @@ postbackServer.post('/handleBootstrap/', function(req, res) {
         console.log('Query data: ' + JSON.stringify(req.query));
         console.log('Some html too (len=' + data.length + ')');
         console.log(data);
+        process.exit(0);
     });
 
     res.json(200, {
@@ -27,29 +28,26 @@ postbackServer.post('/handleBootstrap/', function(req, res) {
     });
 });
 
-postbackServer.listen(3002);
+postbackServer.listen(3003);
+console.log('Postback server started');
 
-var sendReq = function() {
-    var data = {
-        "siteId": "313879",
-        "articleId": 34,
-        "networkId": "livefyre.com",
-        "app": "main"
-    };
-
-    var queryObj = {
-        'callback': 'http://localhost:3002/handleBootstrap/',
-        'data': JSON.stringify(data)
-    };
-
-    var queryString = querystring.stringify(queryObj);
-    var url = 'http://localhost:5000/api/v1.0/bootstrap/fyre.conv/?' + queryString;
-
-    http.get(url, function(res) {
-        res.on('data', function(chunky) {
-            console.log('Request sent: ' + chunky.toString());
-        });
-    });
+var data = {
+    "siteId": "313879",
+    "articleId": 34,
+    "networkId": "livefyre.com",
+    "app": "main"
+};
+var queryObj = {
+    'callback': 'http://localhost:3003/handleBootstrap/',
+    'data': JSON.stringify(data)
 };
 
-sendReq();
+var queryString = querystring.stringify(queryObj);
+var url = 'http://localhost:5000/api/v1.0/bootstrap/fyre.conv/?' + queryString;
+
+console.log('Sending req');
+http.get(url, function(res) {
+    res.on('data', function(chunky) {
+        console.log('Request result: ' + chunky.toString());
+    });
+});
