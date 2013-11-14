@@ -3,3 +3,9 @@ BootstrapHtml:
     web_port: 3002
     redis_host: localhost
     redis_port: 6379
+
+environment:
+    type: 'dev'
+
+newrelic:
+    license_key: 'blah'

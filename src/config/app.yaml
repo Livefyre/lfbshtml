@@ -15,3 +15,15 @@ BootstrapHtml:
         description:
         type: !!int "0"
         value: 6379
+
+environment:
+    type: !spec
+        description: Environment where the app is being run
+        type: !!str ""
+        value: !required "cluster.yaml"
+
+newrelic:
+    license_key: !spec
+        description: License key for New Relic
+        type: !!str ""
+        value: !required "cluster.yaml"
