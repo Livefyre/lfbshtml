@@ -9,6 +9,7 @@ exports.setRedisServer = function() {
 
     kue.redis.createClient = function() {
         var client = redis.createClient(port, host);
+        console.log('Redis client created at', host, 'port', port)
         return client;
     };
 };
