@@ -22,7 +22,7 @@ var hostMap = {
  * @param {function()} callback
  */
 exports.run = function(type, data, callback) {
-    data.host = hostMap[config.environment.host] + '.livefyre.com';
+    data.host = hostMap[config.environment.type] + '.livefyre.com';
 
     var childArgs = [
         __dirname + '/../../phantom/bootstrapper.js',
@@ -30,7 +30,7 @@ exports.run = function(type, data, callback) {
         encodeURIComponent(JSON.stringify(data))
     ];
 
-    console.log('Running phantom child proc to get bs data');
+    console.log('Running phantom child proc to get bs data', data);
     var isOSX = !!process.platform.match(/darwin/);
     var opts = {
         maxBuffer: 500*1024
