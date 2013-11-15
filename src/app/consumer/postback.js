@@ -7,12 +7,28 @@ var http = require('http'),
     querystring = require('querystring');
 
 /**
+ * @param {string} path
+ * @param {Object} args
+ */
+function makePath(path, args) {
+    var sep = '?';
+    if (path.indexOf(sep) > -1) {
+        sep = '&'
+    }
+    path += sep + querystring.stringify(args);
+    return path;
+};
+
+/**
  * Post to the callbackurl with the rawData as the body and args as query params
  * @param {string} callbackUrl
  * @param {Object} queryParams
  * @param {string} rawData
  */
 module.exports = function(callbackUrl, queryParams, rawData) {
+    if (!/https?/.test(callbackUrl)) {
+        callbackUrl = 'http://' + callbackUrl;
+    }
     console.log('Postbacking to ' + callbackUrl);
     var parsedUrl = url.parse(callbackUrl),
         path = makePath(parsedUrl.path, queryParams);
@@ -36,21 +52,8 @@ module.exports = function(callbackUrl, queryParams, rawData) {
         });
 
     req.on('error', function(e) {
-        console.log('Problem with postback request: msg=' + e.message + ' url=' + parsedUrl);
+        console.log('Problem with postback request: msg=' + e.message + ' url=' + callbackUrl);
     });
 
     req.end(rawData);
-};
-
-/**
- * @param {string} path
- * @param {Object} args
- */
-var makePath = function(path, args) {
-    var sep = '?';
-    if (path.indexOf(sep) > -1) {
-        sep = '&'
-    }
-    path += sep + querystring.stringify(args);
-    return path;
 };
