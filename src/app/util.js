@@ -4,7 +4,7 @@ var kue = require('kue'),
     config = require('../config');
 
 exports.setRedisServer = function() {
-    var port = config.BootstrapHtml.redis_port || process.env.REDISTOGO_URL,
+    var port = config.BootstrapHtml.redis_port || process.env.REDISTOGO_URL || 6379,
         host = config.BootstrapHtml.redis_host;
 
     kue.redis.createClient = function() {
