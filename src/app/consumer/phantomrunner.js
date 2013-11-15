@@ -33,7 +33,7 @@ exports.run = function(type, data, callback) {
     console.log('Running phantom child proc to get bs data', data);
     var isOSX = !!process.platform.match(/darwin/);
     var opts = {
-        maxBuffer: 500*1024
+        maxBuffer: 2000*1024 //2mb buffer for those larger docs
     };
     childProcess.execFile(binPath, childArgs, opts, function(err, stdout, stderr) {
         console.log('Phantom child process has run');
