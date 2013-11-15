@@ -7,9 +7,9 @@
 var childProcess = require('child_process'),
     phantomjs = require('phantomjs'),
     binPath = phantomjs.path,
-    config = require('../config');
+    config = require('../../config');
 
-
+// Host mapping of environments to js livefyre.js file hosts
 var hostMap = {
     'prod': 'zor',
     'staging': 'zor.t402',
