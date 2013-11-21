@@ -53,3 +53,8 @@ exports.bootstrap = function(req, res) {
 
     res.json(200, {message: 'Boostrap job successfully added'});
 };
+
+exports.ping = function(req, res) {
+    res.set('Content-Type', 'text/plain');
+    res.send('pong');
+};
