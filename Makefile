@@ -4,7 +4,8 @@ TESTS := $(shell find ./src -name "test.js")
 
 install:
 	@ # Install the app
-	@echo "Installing phantom bootstrapper"
+	@echo "Installing..."
+	@rm -rf ./node_modules
 	@npm install -f
 	@mkdir -p ./bin
 	@cp templates/* ./bin
