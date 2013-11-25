@@ -9,7 +9,7 @@
   "version": "1.0.0",
   "dependencies": {
     "express": "3.2.4",
-    "kue": "0.6.2",
+    "kue": "git://github.com/behrad/kue.git#c3748be3a4a4cb478f9c8c6e7eb6099b01044bee",
     "foreman": "0.0.25",
     "js-yaml": "2.1.3",
     "phantomjs": "1.9.2-2",
