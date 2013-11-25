@@ -31,20 +31,31 @@ exports.run = function(type, data, callback) {
     ];
 
     console.log('Running phantom child proc to get bs data', data);
-    var isOSX = !!process.platform.match(/darwin/);
-    var phantomInst = childProcess.spawn(binPath, childArgs);
-    phantomInst.stdout.on('data', callback);
+    var isOSX = !!process.platform.match(/darwin/),
+        phantomInst = childProcess.spawn(binPath, childArgs),
+        buffer = new Buffer('');
 
+    phantomInst.stdout.on('data', function(data) {
+        if (data) {
+            buffer.write(data.toString());
+        }
+    });
     phantomInst.stderr.on('data', function(data) {
         if (data && !isOSX) {
             console.error('Something went wrong with phantom child proc');
             console.error(data);
-            return;
         }
     });
 
     phantomInst.on('error', function(err) {
         console.error('Something went wrong with phantom child proc');
         console.error(err);
+    });
+
+    phantomInst.on('close', function() {
+        callback(buffer.toString());
+    });
+    phantomInst.on('exit', function() {
+        callback(buffer.toString());
     });
 };
