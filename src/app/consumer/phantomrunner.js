@@ -36,20 +36,19 @@ exports.run = function(type, data, callback) {
         buffer = new Buffer('');
 
     phantomInst.stdout.on('data', function(data) {
-        if (data) {
-            buffer.write(data.toString());
-        }
+        buffer.write(data.toString());
     });
+
     phantomInst.stderr.on('data', function(data) {
         if (data && !isOSX) {
             console.error('Something went wrong with phantom child proc');
-            console.error(data);
+            console.error(data.toString());
         }
     });
 
     phantomInst.on('error', function(err) {
         console.error('Something went wrong with phantom child proc');
-        console.error(err);
+        console.error(err.toString());
     });
 
     phantomInst.on('close', function() {
