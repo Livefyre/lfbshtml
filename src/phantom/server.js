@@ -57,7 +57,7 @@ function replaceTmplWithObject(template, data) {
  * @param {number} port
  */
 exports.create = function(port) {
-    return server.listen(port, function (request, response) {
+    server.listen(port, function (request, response) {
         var url = request.url,
             tmplName = getTmplNameFromUrl(url),
             path = fs.workingDirectory + '/src/phantom/templates/' + tmplName,
@@ -81,4 +81,5 @@ exports.create = function(port) {
         response.write(data);
         response.close();
     });
+    return server;
 };
