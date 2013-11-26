@@ -33,10 +33,10 @@ exports.run = function(type, data, callback) {
     console.log('Running phantom child proc to get bs data', data);
     var isOSX = !!process.platform.match(/darwin/),
         phantomInst = childProcess.spawn(binPath, childArgs),
-        buffer = new Buffer('');
+        html = '';
 
     phantomInst.stdout.on('data', function(data) {
-        buffer.write(data.toString());
+        html += data.toString();
     });
 
     phantomInst.stderr.on('data', function(data) {
@@ -52,6 +52,6 @@ exports.run = function(type, data, callback) {
     });
 
     phantomInst.on('close', function() {
-        callback(buffer.toString());
+        callback(html);
     });
 };
