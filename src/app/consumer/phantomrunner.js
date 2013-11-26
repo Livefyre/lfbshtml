@@ -22,7 +22,7 @@ var hostMap = {
  * @param {function()} callback
  */
 exports.run = function(type, data, callback) {
-    data.host = hostMap[config.environment.type] || 'zor' + '.livefyre.com';
+    data.host = (hostMap[config.environment.type] || 'zor') + '.livefyre.com';
 
     var childArgs = [
         __dirname + '/../../phantom/bootstrapper.js',
