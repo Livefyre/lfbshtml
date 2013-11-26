@@ -54,7 +54,4 @@ exports.run = function(type, data, callback) {
     phantomInst.on('close', function() {
         callback(buffer.toString());
     });
-    phantomInst.on('exit', function() {
-        callback(buffer.toString());
-    });
 };
