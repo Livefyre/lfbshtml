@@ -45,5 +45,5 @@ page.open(url, function(status) {
         console.log(html);
         serverObj.close();
         phantom.exit();
-    });
+    }, 30000);
 });
