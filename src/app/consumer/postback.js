@@ -38,7 +38,7 @@ module.exports = function(callbackUrl, queryParams, rawData) {
             path: path,
             method: 'POST',
             headers: {
-                'Content-Length': rawData.length,
+                'Content-Length': Buffer.byteLength(rawData),
                 'Content-Type': 'text/html'
             }
         },
