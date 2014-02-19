@@ -39,11 +39,13 @@ page.open(url, function(status) {
             return document.getElementsByClassName('fyre-comment-stream').length > 0;
         });
     }, function() {
-        var html = page.evaluate(function() {
-            return document.getElementById('bs').innerHTML;
-        });
-        console.log(html);
-        serverObj.close();
-        phantom.exit();
+        setTimeout(function() {
+            var html = page.evaluate(function() {
+                return document.getElementById('bs').innerHTML;
+            });
+            console.log(html);
+            serverObj.close();
+            phantom.exit();
+        }, 500);
     }, 30000);
 });
