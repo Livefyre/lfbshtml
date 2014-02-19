@@ -25,13 +25,16 @@ exports.run = function(type, data, callback) {
     data.host = (hostMap[config.environment.type] || 'zor') + '.livefyre.com';
 
     var childArgs = [
+        '--load-images=false',
+        '--disk-cache=true',
         __dirname + '/../../phantom/bootstrapper.js',
         type,
         encodeURIComponent(JSON.stringify(data))
     ];
 
     console.log('Running phantom child proc to get bs data', data);
-    var phantomInst = childProcess.spawn(binPath, childArgs), html = '';
+    var phantomInst = childProcess.spawn(binPath, childArgs),
+        html = '';
 
     phantomInst.stdout.on('data', function(data) {
         html += data.toString();
