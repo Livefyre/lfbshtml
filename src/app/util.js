@@ -3,13 +3,15 @@ var kue = require('kue'),
     url = require('url'),
     config = require('../config');
 
-exports.setRedisServer = function() {
-    var port = config.BootstrapHtml.redis_port || process.env.REDISTOGO_URL || 6379,
-        host = config.BootstrapHtml.redis_host;
+module.exports = {
+    setRedisServer: function() {
+        var port = config.BootstrapHtml.redis_port || process.env.REDISTOGO_URL || 6379,
+            host = config.BootstrapHtml.redis_host;
 
-    kue.redis.createClient = function() {
-        var client = redis.createClient(port, host);
-        console.log('Redis client created at', host, 'port', port)
-        return client;
-    };
+        kue.redis.createClient = function() {
+            var client = redis.createClient(port, host);
+            console.log('Redis client created at', host, 'port', port)
+            return client;
+        };
+    }
 };

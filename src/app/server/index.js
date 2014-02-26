@@ -9,5 +9,4 @@ var express = require('express'),
 app.get('/ping', api.ping);
 app.get('/api/v1.0/bootstrap/:bstype/', api.bootstrap);
 
-// TODO(rrp): This extra set needed?
-module.exports = exports = app;
+module.exports = app;
