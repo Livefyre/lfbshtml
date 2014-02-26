@@ -5,6 +5,7 @@
 var kue = require('kue');
 require('../util').setRedisServer();
 var jobs = kue.createQueue();
+var statsClient = require('../util').getStatsClient();
 
 module.exports = {}
 
@@ -45,7 +46,7 @@ module.exports.bootstrap = function(req, res) {
     }).save();
 
     console.log('Added job to `bootstrapper` queue');
-
+    statsClient.increment('jobAdded');
     res.json(200, {message: 'Boostrap job successfully added'});
 };
 
