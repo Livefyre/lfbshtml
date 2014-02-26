@@ -21,7 +21,7 @@ var hostMap = {
  * @param {Object} data
  * @param {function()} callback
  */
-exports.run = function(type, data, callback) {
+var run = function(type, data, callback) {
     data.host = (hostMap[config.environment.type] || 'zor') + '.livefyre.com';
 
     var childArgs = [
@@ -48,4 +48,8 @@ exports.run = function(type, data, callback) {
     phantomInst.on('close', function() {
         callback(html);
     });
+};
+
+module.exports = {
+    run: run
 };

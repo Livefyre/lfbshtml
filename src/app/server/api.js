@@ -6,15 +6,10 @@ var kue = require('kue');
 require('../util').setRedisServer();
 var jobs = kue.createQueue();
 
-/**
- * @param {something} req
- * @param {something} req
- */
-exports.bootstrap = function(req, res) {
-    var bsType = req.params.bstype;
+module.exports = {}
 
-    // TODO(rrp): Standardize all this error checking
-    // Gross
+module.exports.bootstrap = function(req, res) {
+    var bsType = req.params.bstype;
 
     // TODO(rrp): Enum / setting types?
     if (bsType !== 'fyre.conv') {
@@ -54,7 +49,7 @@ exports.bootstrap = function(req, res) {
     res.json(200, {message: 'Boostrap job successfully added'});
 };
 
-exports.ping = function(req, res) {
+module.exports.ping = function(req, res) {
     res.set('Content-Type', 'text/plain');
     res.send('pong');
 };
