@@ -27,7 +27,7 @@ module.exports = {
         var serverUrl = host[0];
         var serverPort = host[1];
 
-        var scope = ['stats', config.environment.type, 'bshtml'].join('.');
+        var scope = [config.environment.type, 'bshtml'].join('.');
         statsDClient = new lynx(serverUrl, serverPort, {
             scope: scope
         });
