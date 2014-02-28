@@ -15,6 +15,10 @@ BootstrapHtml:
         description:
         type: !!int "0"
         value: 6379
+    statsd_host: !spec
+        description: StatsD server config
+        type: !uri ""
+        value: !uri "statsd://cmm1.livefyre.com:8125"
 
 environment:
     type: !spec
