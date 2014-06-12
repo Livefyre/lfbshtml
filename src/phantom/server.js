@@ -68,7 +68,7 @@ exports.create = function(port) {
         } catch (e) {
             console.error('could not read from path');
             response.write('Bad template path');
-            respose.close();
+            response.close();
         }
 
         config = getCfgObjectFromUrl(url);
