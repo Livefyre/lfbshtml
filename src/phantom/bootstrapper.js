@@ -47,5 +47,8 @@ page.open(url, function(status) {
             serverObj.close();
             phantom.exit();
         }, 500);
+    }, function() {
+        serverObj.close();
+        phantom.exit();
     }, 30000);
 });
