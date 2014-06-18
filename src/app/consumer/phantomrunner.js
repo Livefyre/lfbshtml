@@ -25,8 +25,6 @@ var run = function(type, data, callback) {
     data.host = (hostMap[config.environment.type] || 'zor') + '.livefyre.com';
 
     var childArgs = [
-        '--load-images=false',
-        '--disk-cache=true',
         __dirname + '/../../phantom/bootstrapper.js',
         type,
         encodeURIComponent(JSON.stringify(data))
