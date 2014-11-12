@@ -3,16 +3,17 @@
  * TODO(rrp): Handle errors, redis connection, ports, etc
  */
 
-var kue = require('kue'),
-    runner = require('./phantomrunner'),
-    postBack = require('./postback'),
-    jobs,
-    statsClient = require('../util').getStatsClient();
+var kue = require('kue');
+var runner = require('./phantomrunner');
+var postBack = require('./postback');
+var jobs;
+var util = require('../util');
+var statsClient = util.getStatsClient();
 
-require('../util').setRedisServer();
 jobs = kue.createQueue({
     prefix: 'lfbshtml',
-    disableSearch: true
+    disableSearch: true,
+    redis: util.getRedisSettings()
 });
 
 module.exports = {
