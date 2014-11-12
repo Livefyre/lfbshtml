@@ -10,7 +10,7 @@
   "version": "1.0.0",
   "dependencies": {
     "express": "3.2.4",
-    "kue": "git://github.com/behrad/kue.git#c3748be3a4a4cb478f9c8c6e7eb6099b01044bee",
+    "kue": "0.8.9",
     "lynx": "0.1.1",
     "phantomjs": "1.9.7-8",
     "mocha": "1.9.0",
