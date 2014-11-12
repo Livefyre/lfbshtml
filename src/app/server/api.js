@@ -3,12 +3,13 @@
  */
 
 var kue = require('kue');
-require('../util').setRedisServer();
+var util = require('../util');
 var jobs = kue.createQueue({
     prefix: 'lfbshtml',
-    disableSearch: true
+    disableSearch: true,
+    redis: util.getRedisSettings()
 });
-var statsClient = require('../util').getStatsClient();
+var statsClient = util.getStatsClient();
 
 module.exports = {}
 
