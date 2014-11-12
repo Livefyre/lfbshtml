@@ -4,7 +4,9 @@
 
 var kue = require('kue');
 require('../util').setRedisServer();
-var jobs = kue.createQueue();
+var jobs = kue.createQueue({
+    prefix: 'lfbshtml'
+});
 var statsClient = require('../util').getStatsClient();
 
 module.exports = {}
@@ -39,11 +41,13 @@ module.exports.bootstrap = function(req, res) {
     }
 
     // Just add to queue if all is good.
-    jobs.create('bootstrapper', {
+    var job = jobs.create('bootstrapper', {
         bsType: bsType,
         data: data,
         callback: callback
-    }).save();
+    });
+
+    job.removeOnComplete(true).save();
 
     console.log('Added job to `bootstrapper` queue');
     statsClient.increment('jobAdded');

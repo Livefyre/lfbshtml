@@ -6,7 +6,9 @@ var url = require('url');
 var querystring = require('querystring');
 
 var kue = require('kue');
-var jobs = kue.createQueue();
+var jobs = kue.createQueue({
+    prefix: 'lfbshtml'
+});
 
 describe('App', function() {
     describe('serverOpenClose', function() {

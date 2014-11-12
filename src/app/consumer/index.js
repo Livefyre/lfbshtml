@@ -10,7 +10,9 @@ var kue = require('kue'),
     statsClient = require('../util').getStatsClient();
 
 require('../util').setRedisServer();
-jobs = kue.createQueue();
+jobs = kue.createQueue({
+    prefix: 'lfbshtml'
+});
 
 module.exports = {
     start: function() {
