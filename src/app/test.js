@@ -7,7 +7,8 @@ var querystring = require('querystring');
 
 var kue = require('kue');
 var jobs = kue.createQueue({
-    prefix: 'lfbshtml'
+    prefix: 'lfbshtml',
+    disableSearch: true
 });
 
 describe('App', function() {

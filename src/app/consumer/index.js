@@ -11,7 +11,8 @@ var kue = require('kue'),
 
 require('../util').setRedisServer();
 jobs = kue.createQueue({
-    prefix: 'lfbshtml'
+    prefix: 'lfbshtml',
+    disableSearch: true
 });
 
 module.exports = {

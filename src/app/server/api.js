@@ -5,7 +5,8 @@
 var kue = require('kue');
 require('../util').setRedisServer();
 var jobs = kue.createQueue({
-    prefix: 'lfbshtml'
+    prefix: 'lfbshtml',
+    disableSearch: true
 });
 var statsClient = require('../util').getStatsClient();
 
