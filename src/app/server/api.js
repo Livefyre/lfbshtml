@@ -3,18 +3,18 @@
  */
 
 var kue = require('kue');
-require('../util').setRedisServer();
-var jobs = kue.createQueue();
+var util = require('../util');
+var jobs = kue.createQueue({
+    prefix: 'lfbshtml',
+    disableSearch: true,
+    redis: util.getRedisSettings()
+});
+var statsClient = util.getStatsClient();
 
-/**
- * @param {something} req
- * @param {something} req
- */
-exports.bootstrap = function(req, res) {
+module.exports = {}
+
+module.exports.bootstrap = function(req, res) {
     var bsType = req.params.bstype;
-
-    // TODO(rrp): Standardize all this error checking
-    // Gross
 
     // TODO(rrp): Enum / setting types?
     if (bsType !== 'fyre.conv') {
@@ -43,18 +43,20 @@ exports.bootstrap = function(req, res) {
     }
 
     // Just add to queue if all is good.
-    jobs.create('bootstrapper', {
+    var job = jobs.create('bootstrapper', {
         bsType: bsType,
         data: data,
         callback: callback
-    }).save();
+    });
+
+    job.removeOnComplete(true).save();
 
     console.log('Added job to `bootstrapper` queue');
-
+    statsClient.increment('jobAdded');
     res.json(200, {message: 'Boostrap job successfully added'});
 };
 
-exports.ping = function(req, res) {
+module.exports.ping = function(req, res) {
     res.set('Content-Type', 'text/plain');
     res.send('pong');
 };

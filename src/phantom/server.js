@@ -57,7 +57,7 @@ function replaceTmplWithObject(template, data) {
  * @param {number} port
  */
 exports.create = function(port) {
-    return server.listen(port, function (request, response) {
+    server.listen(port, function (request, response) {
         var url = request.url,
             tmplName = getTmplNameFromUrl(url),
             path = fs.workingDirectory + '/src/phantom/templates/' + tmplName,
@@ -68,7 +68,7 @@ exports.create = function(port) {
         } catch (e) {
             console.error('could not read from path');
             response.write('Bad template path');
-            respose.close();
+            response.close();
         }
 
         config = getCfgObjectFromUrl(url);
@@ -81,4 +81,5 @@ exports.create = function(port) {
         response.write(data);
         response.close();
     });
+    return server;
 };

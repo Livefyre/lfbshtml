@@ -21,8 +21,8 @@ var hostMap = {
  * @param {Object} data
  * @param {function()} callback
  */
-exports.run = function(type, data, callback) {
-    data.host = hostMap[config.environment.type] + '.livefyre.com';
+var run = function(type, data, callback) {
+    data.host = (hostMap[config.environment.type] || 'zor') + '.livefyre.com';
 
     var childArgs = [
         __dirname + '/../../phantom/bootstrapper.js',
@@ -31,22 +31,23 @@ exports.run = function(type, data, callback) {
     ];
 
     console.log('Running phantom child proc to get bs data', data);
-    var isOSX = !!process.platform.match(/darwin/);
-    var opts = {
-        maxBuffer: 2000*1024 //2mb buffer for those larger docs
-    };
-    childProcess.execFile(binPath, childArgs, opts, function(err, stdout, stderr) {
-        console.log('Phantom child process has run');
-        if (err) {
-            console.error('Something went wrong with phantom child proc');
-            console.error(err);
-            return;
-        }
-        if (stderr && !isOSX) {
-            console.error('Something went wrong with phantom child proc');
-            console.error(stderr);
-            return;
-        }
-        callback(stdout);
+    var phantomInst = childProcess.spawn(binPath, childArgs),
+        html = '';
+
+    phantomInst.stdout.on('data', function(data) {
+        html += data.toString();
     });
+
+    phantomInst.on('error', function(err) {
+        console.error('Something went wrong with phantom child proc');
+        console.error(err.toString());
+    });
+
+    phantomInst.on('close', function() {
+        callback(html);
+    });
+};
+
+module.exports = {
+    run: run
 };

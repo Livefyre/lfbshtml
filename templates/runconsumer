@@ -5,10 +5,10 @@ echo "Starting..."
 SWD="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )/../" && pwd )"
 cd $SWD
 if [ "`uname`" = "Darwin" ]; then
-        $SWD/bin/yamlparse $SWD/src/config/app.yaml $SWD/src/config/env_darwin.yaml /etc/livefyre/cluster.yaml > $SWD/config.json
+        node $SWD/node_modules/yamljs/yamljs.js $SWD/src/config/app.yaml $SWD/src/config/env_darwin.yaml /etc/livefyre/cluster.yaml > $SWD/config.json
         NEWRELIC__APP_NAME=$USER-irt
 else
-        $SWD/bin/yamlparse $SWD/src/config/app.yaml /etc/livefyre/cluster.yaml > $SWD/config.json
+         node $SWD/node_modules/yamljs/yamljs.js $SWD/src/config/app.yaml /etc/livefyre/cluster.yaml > $SWD/config.json
 fi
 chmod 755 $SWD/config.json
 exec node ${SWD}/src/runconsumer.js

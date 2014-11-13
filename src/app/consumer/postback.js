@@ -4,7 +4,8 @@
  */
 var http = require('http'),
     url = require('url'),
-    querystring = require('querystring');
+    querystring = require('querystring'),
+    statsClient = require('../util').getStatsClient();
 
 /**
  * @param {string} path
@@ -38,9 +39,8 @@ module.exports = function(callbackUrl, queryParams, rawData) {
             path: path,
             method: 'POST',
             headers: {
-                'Content-Length': rawData.length,
-                'Content-Type': 'text/html',
-                'Content-Type': 'application/x-www-form-urlencoded'
+                'Content-Length': Buffer.byteLength(rawData),
+                'Content-Type': 'text/html'
             }
         },
 
@@ -48,11 +48,13 @@ module.exports = function(callbackUrl, queryParams, rawData) {
             res.setEncoding('utf8');
             res.on('data', function() {
                 console.log('Postback success');
+                statsClient.increment('postbackSuccess');
             });
         });
 
     req.on('error', function(e) {
         console.log('Problem with postback request: msg=' + e.message + ' url=' + callbackUrl);
+        statsClient.increment('postbackError');
     });
 
     req.end(rawData);
