@@ -6,6 +6,3 @@ BootstrapHtml:
 
 environment:
     type: 'dev'
-
-newrelic:
-    license_key: 'blah'
