@@ -25,9 +25,3 @@ environment:
         description: Environment where the app is being run
         type: !!str ""
         value: !required "cluster.yaml"
-
-newrelic:
-    license_key: !spec
-        description: License key for New Relic
-        type: !!str ""
-        value: !required "cluster.yaml"

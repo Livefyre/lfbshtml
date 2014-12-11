@@ -6,7 +6,6 @@ SWD="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )/../" && pwd )"
 cd $SWD
 if [ "`uname`" = "Darwin" ]; then
         node $SWD/node_modules/yamljs/yamljs.js $SWD/src/config/app.yaml $SWD/src/config/env_darwin.yaml /etc/livefyre/cluster.yaml > $SWD/config.json
-        NEWRELIC__APP_NAME=$USER-irt
 else
         node $SWD/node_modules/yamljs/yamljs.js $SWD/src/config/app.yaml /etc/livefyre/cluster.yaml > $SWD/config.json
 fi
