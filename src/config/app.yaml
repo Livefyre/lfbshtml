@@ -18,7 +18,7 @@ BootstrapHtml:
     statsd_host: !spec
         description: StatsD server config
         type: !uri ""
-        value: !uri "statsd://cmm1.livefyre.com:8125"
+        value: !uri "statsd://statsd-ops-1:8125"
 
 environment:
     type: !spec
