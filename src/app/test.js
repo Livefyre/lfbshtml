@@ -13,26 +13,22 @@ var jobs = kue.createQueue({
 
 describe('App', function() {
     describe('serverOpenClose', function() {
-        it('Make sure the server listens and closes', function(done) {
+        it('Make sure the server listens', function(done) {
             assert(typeof server.all == 'function');
+            var testServer = http.createServer(server);
+            testServer.listen(3000, function() {
+                testServer.close();
+                done();
+            });
+        });
 
-            var connectSuccessful = false;
-            var closeSuccessful = false;
+        it('the server closes connections', function (done) {
             var testServer = http.createServer(server);
             testServer.on('close', function() {
-                closeSuccessful = true;
-            });
-            testServer.listen(3000, function() {
-                connectSuccessful = true;
+                done();
             });
 
             testServer.close();
-            done();
-            
-            after(function() {
-                assert(connectSuccessful);
-                assert(closeSuccessful);
-            });
         });
     });
 
