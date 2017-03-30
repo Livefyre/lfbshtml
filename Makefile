@@ -1,4 +1,4 @@
-.PHONY: install test deploy run
+.PHONY: install test run
 
 TESTS := $(shell find ./src -name "test.js")
 
@@ -6,7 +6,7 @@ install:
 	@ # Install the app
 	@echo "Installing..."
 	@rm -rf ./node_modules
-	@npm install -f
+	@npm install
 	@mkdir -p ./bin
 	@cp templates/* ./bin
 	@chmod -R 755 ./bin
@@ -15,9 +15,11 @@ test:
 	@ # Run some mocha tests
 	@./node_modules/.bin/mocha $(TESTS)
 
-run:
-	@echo "Running locally via foreman"
-	@node_modules/.bin/nf start
+run_server:
+	bin/runserver
+
+run_consumer:
+	bin/runconsumer
 
 spam:
 	@echo "Mmmmm spam"
