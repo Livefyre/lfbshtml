@@ -5,7 +5,7 @@
  */
 
 var childProcess = require('child_process'),
-    phantomjs = require('phantomjs'),
+    phantomjs = require('phantomjs-prebuilt'),
     binPath = phantomjs.path,
     config = require('../../config');
 

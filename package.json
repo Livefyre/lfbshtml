@@ -12,8 +12,8 @@
     "express": "3.2.4",
     "kue": "0.8.9",
     "lynx": "0.1.1",
-    "phantomjs": "1.9.7-8",
     "mocha": "1.9.0",
+    "phantomjs-prebuilt": "^2.1.14",
     "redis": "0.8.3",
     "xtend": "2.1.1",
     "yamljs": "git://github.com/Livefyre/yamljs#v1.0.4"

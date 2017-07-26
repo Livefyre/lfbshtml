@@ -32,10 +32,10 @@ postbackServer.listen(3003);
 console.log('Postback server started');
 
 var data = {
-    "siteId": "313879",
-    "articleId": 34,
-    "networkId": "livefyre.com",
-    "app": "main"
+    "siteId": "351493",
+    "articleId": 'Content-Venue-97495-en-GB',
+    "networkId": "timeout.fyre.co",
+    "app": "reviews"
 };
 var queryObj = {
     'callback': 'http://localhost:3003/handleBootstrap/',
@@ -43,7 +43,7 @@ var queryObj = {
 };
 
 var queryString = querystring.stringify(queryObj);
-var url = 'http://localhost:5000/api/v1.0/bootstrap/fyre.conv/?' + queryString;
+var url = 'http://localhost:3002/api/v1.0/bootstrap/fyre.conv/?' + queryString;
 
 console.log('Sending req');
 http.get(url, function(res) {
