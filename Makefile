@@ -12,8 +12,8 @@ install:
 	@chmod -R 755 ./bin
 
 test:
-	@ # Run some mocha tests
-	@./node_modules/.bin/mocha $(TESTS)
+	node node_modules/yamljs/yamljs.js src/config/app.yaml > ./config.json
+	./node_modules/.bin/mocha $(TESTS)
 
 run_server:
 	bin/runserver
