@@ -1,5 +1,5 @@
 /**
- * @fileoverview Basic webserver that finds templates based on 
+ * @fileoverview Basic webserver that finds templates based on
  *   request name (see ./templates) and fills in details based on conifg object
  */
 
@@ -27,7 +27,7 @@ function getTmplNameFromUrl(url) {
 function getCfgObjectFromUrl(url) {
     try {
         var config = url.split('config=')[1];
-        return JSON.parse(decodeURIComponent(config));
+        return JSON.parse(decodeURIComponent(decodeURIComponent(config)));
     } catch (e) {
         console.error('Cannot parse config object from url', url);
         throw e;
